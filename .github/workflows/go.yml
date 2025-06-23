@@ -1,0 +1,44 @@
+# .github/workflows/build.yml
+name: Build Go Binaries
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin] # OS: linux, windows, macOS
+        goarch: [amd64, arm64]         # 架構: amd64, arm64
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'  # 你可根據實際專案使用的版本調整
+
+      - name: Build for ${{ matrix.goos }} / ${{ matrix.goarch }}
+        run: |
+          mkdir -p build/${{ matrix.goos }}_${{ matrix.goarch }}
+
+          # 設定副檔名（Windows 需加 .exe）
+          EXT=""
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            EXT=".exe"
+          fi
+
+          # 編譯
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o build/${{ matrix.goos }}_${{ matrix.goarch }}/myapp${EXT}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: myapp-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: build/${{ matrix.goos }}_${{ matrix.goarch }}/
