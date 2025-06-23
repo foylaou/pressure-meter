@@ -28,7 +28,7 @@ type AppInfo struct {
 // 應用程式信息
 var appInfo = AppInfo{
 	Name:        "壓差儀監測工具",
-	Version:     "1.0.0",
+	Version:     "1.0.1",
 	Description: "普時達壓差儀 RS485 監測和數據採集工具",
 	Author:      "Foyliu <s225002731@gmail.com>",
 	BuildTime:   "2025-06-23", // 編譯時會替換
