@@ -31,11 +31,11 @@ jobs:
             EXT=".exe"
           fi
 
-          OUTPUT="myapp${EXT}"
+          OUTPUT="pressure-meter${EXT}"
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o $OUTPUT
 
-          # 檔名格式：myapp-v1.0.0-windows-amd64.zip
-          ARCHIVE="myapp-${{ github.ref_name }}-${{ matrix.goos }}-${{ matrix.goarch }}"
+          # 檔名格式：pressure-meter-v1.0.0-windows-amd64.zip
+          ARCHIVE="pressure-meter-${{ github.ref_name }}-${{ matrix.goos }}-${{ matrix.goarch }}"
           mkdir $ARCHIVE
           mv $OUTPUT $ARCHIVE/
 
