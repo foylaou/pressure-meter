@@ -49,5 +49,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
+          overwrite: true  # << 加這行才能覆蓋已存在的 Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITTOKEN }}
